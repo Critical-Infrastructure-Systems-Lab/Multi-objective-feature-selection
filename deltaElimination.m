@@ -43,12 +43,12 @@ archive     = PF0.archive;
 tempArchive = archive;
 
 % extract accuracies for delta elimination
-accuracies = fvals_ext(:,3);
+accuracies = -(fvals_ext(:,3));
 
 % find best value of metric
-bestValue = min(accuracies);
+bestValue = max(accuracies);
 
-delta = (delta/100)*abs(bestValue);
+delta = (delta/100);
 
 
 % in this array 1 will identify solution to be eliminated 
@@ -56,7 +56,7 @@ ixesToRemove = zeros(size(tempArchive,1),1);
 
 % proceed with delta elimination
 for i = 1 : numel(tempArchive)
-    if accuracies(i) > bestValue + delta;
+    if accuracies(i) < (1-delta)*bestValue;
         % remove, it's inferior
         ixesToRemove(i) = 1;
     else
@@ -70,7 +70,7 @@ for i = 1 : numel(tempArchive)
             end
             Sj = tempArchive{j};
             if isequal(intersect(Si,Sj),Sj) &&...
-                    (accuracies(j)<accuracies(i))
+                    (accuracies(j)>accuracies(i))
                 % remove solution if inferior
                 ixesToRemove(i) = 1;
             end
