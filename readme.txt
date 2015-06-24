@@ -15,7 +15,9 @@ This toolbox depends on the following contributions which have to be donwloaded 
 
 The NSGA-II version of the algorithms is illustrated in "script_example_NSGAII.m" for the "Heart" dataset of the UCI Repository (Lichman, 2013). 
 
-Contrary to the experiments reported in Karakaya et al. (2015), this illustrative implementation features only one run for each algorithm on the chosen dataset. We suggest the user to run each algorithm several times, possibly using different randomizations of the employed dataset, in order to maximize the number of solutions returned by the methods and better assess the accuracy of the trained models. An overall Pareto-front should then be constructed from all the solutions returned by the multiple runs, making sure that the same value of accuracy is assigned to equal solutions (equal subsets) returned on different runs. This could be done by averaging the accuracies across the runs. For a fair comparison of the results of the three algorithms, it is also important that the same (average) accuracy is assigned for similar solutions returned by the different techniques. 
+Contrary to the experiments reported in Karakaya et al. (2015), this illustrative implementation features only one run for each algorithm on the chosen dataset. We suggest the user to run each algorithm several times, possibly using different randomizations of the employed dataset, in order to maximize the number of solutions returned by the methods and better assess the accuracy of the trained models. An overall Pareto-front should then be constructed from all the solutions returned by the multiple runs, making sure that the same value of accuracy is assigned to equal solutions (equal subsets) returned on different runs. This could be done by averaging the accuracies across the runs. For a fair comparison of the results of the three algorithms, it is also important that the same (average) accuracy is assigned for the same solutions returned by the different techniques.
+
+
 
 
 
