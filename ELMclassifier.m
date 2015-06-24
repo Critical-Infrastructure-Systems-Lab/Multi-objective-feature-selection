@@ -58,7 +58,7 @@ W1 = rand(nUnits,nFeatures)*2-1;
 bias  = rand(nUnits,1);
 
 % compute hidden neuron output matrix H
-H = tanhActFun(W1*trX + repmat(bias,[1,nPatternsTr]));
+H = sigActFun(W1*trX + repmat(bias,[1,nPatternsTr]));
 
 % compute hidden->output weights W2
 Hinv = pinv(H');
@@ -70,7 +70,7 @@ temp     = (H' * W2)';
 trYhat   = temp';
 
 % ...  and validation dataset
-Hval     = tanhActFun(W1*valX + repmat(bias,[1,nPatternsVal]));
+Hval     = sigActFun(W1*valX + repmat(bias,[1,nPatternsVal]));
 temp     = (Hval' * W2)';
 [~,temp] = max(temp,[],1);
 valYhat  = temp';
