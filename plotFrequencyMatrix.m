@@ -95,14 +95,14 @@ text(0.875:1:nFeat, zeros(1,nFeat),labels,...
 
 % add secondary y axis
 % check if metricToPrint was given, otherwise go for RMSE
-temp = accuracies
+temp = accuracies;
 
 labels = arrayfun(@(x) sprintf('%3.3f',x),temp(sIxes),...
     'UniformOutput',false);
 xs = repmat(nFeat+0.625,1,nSubsets+1);
 ys = [0,1:nSubsets];
 text(xs,ys,cat(1,'accuracy',labels));
-[~,ixBest] = max(accuracies(sIxes))
+[~,ixBest] = max(accuracies(sIxes));
 text(xs(ixBest),ys(ixBest+1),labels(ixBest),'Color','red');
 
 axis square
