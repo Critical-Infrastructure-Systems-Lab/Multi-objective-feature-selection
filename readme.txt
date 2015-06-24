@@ -15,6 +15,8 @@ This toolbox depends on the following contributions which have to be donwloaded 
 
 The NSGA-II version of the algorithms is illustrated in "script_example_NSGAII.m" for the "Heart" dataset of the UCI Repository (Lichman, 2013). 
 
+Contrary to the experiments reported in Karakaya et al. (2015), this illustrative implementation features only one run for each algorithm on the chosen dataset. We suggest the user to run each algorithm several times, possibly using different randomizations of the employed dataset at each time, in order to maximize the number of solutions returned by the methods.  
+
 
 
 References: 
