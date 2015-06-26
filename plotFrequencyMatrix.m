@@ -52,8 +52,6 @@ for i = 1 : nSubsets
     fMat(i,thisSubsetIxes) = 1;
 end
 
-% add padding for pColor
-
 % plot 
 temp = fMat.*repmat(cardinalities*nFeat,1,nFeat); % colour by cardinality
 temp2 = [cardinalities,accuracies];
