@@ -1,4 +1,4 @@
-% This script illustrates the NSGA-II implementation of the 
+% This script illustrates the Borg implementation of the 
 % WQEISS/WMOSS/FQEISS feature selection techniques described in:
 %
 %   Karakaya, G., Galelli, S., Ahipasaoglu, S.D., Taormina, R., 2015. 
@@ -31,13 +31,12 @@
 %     along with MATLAB_IterativeInputSelection.  
 %     If not, see <http://www.gnu.org/licenses/>.
  
-
 clc; clear;
 
-%% include paths
+%% specify include paths
 addpath('..\..\Work\Code\toolboxes\mi');            % Peng's mutual information
-addpath('..\toolboxes\nsga2_MATLAB_alternative');   % LIN's NPGM (for NSGA-II)
-addpath('..\toolboxes\pareto_front');               % Yi Cao's paretofront toolbox
+addpath('..\toolboxes\borg-matlab\');               % Borg
+addpath('..\toolboxes\pareto_front');               % paretofront toolbox
 
 
 
@@ -61,7 +60,7 @@ global suRED suREL
 %% Prepare for launching the algorithms
 
 % specify GO algorithm to use (BORG or NSGA2)
-GOalgorithm = 'NSGA2';
+GOalgorithm = 'BORG';
 
 % get algorithm options
 global objFunOptions    
@@ -78,15 +77,22 @@ fvals   = [];               % values of the obj function explored
 
 ix_solutions = [];          % this will track which solutions are found by each algorithm
 
+
 %% launch WQEISS
 fprintf ('Launching WQEISS\n')
 
 % define number of obj functions and the matlab function coding them
-options.numObj = 4;   
-options.objfun = @objFunWQEISS; 
+options.nobjs = 4;   
+options.objectiveFcn = @objFunWQEISS; 
+epsilon = 10^-3;
+epsilons = repmat(epsilon, [1,options.nobjs]);
 
 % launch
-nsga2(options);     
+borg(...
+    options.nvars,options.nobjs,options.nconstrs,...
+    options.objectiveFcn, options.NFE,...
+    options.lowerBounds, options.upperBounds, epsilons);
+
 
 % get solutions indexes for WQEISS
 ixWQEISS = find(ix_solutions);
@@ -104,15 +110,21 @@ PF_WQEISS.fvals_ext = fvals(ixWQEISS(ixesPF),:);
 fprintf ('Launching WMOSS\n')
 
 % define number of obj functions and the matlab function coding them
-options.numObj = 2;   
-options.objfun = @objFunWMOSS; 
+options.nobjs = 2;   
+options.objectiveFcn = @objFunWMOSS; 
+epsilon = 10^-3;
+epsilons = repmat(epsilon, [1,options.nobjs]);
 
 % launch
 ix_solutions = zeros(numel(archive),1); % re-initialize ix_solutions. 
                                         % at the start of the algorithm, none
                                         % of solutions in the archive has been
                                         % found yet;
-nsga2(options);   
+% launch
+borg(...
+    options.nvars,options.nobjs,options.nconstrs,...
+    options.objectiveFcn, options.NFE,...
+    options.lowerBounds, options.upperBounds, epsilons);
 % get solutions indexes for WMOSS
 ixWMOSS  = find(ix_solutions); 
 
@@ -127,15 +139,22 @@ PF_WMOSS.fvals_ext = fvals(ixWMOSS(ixesPF),:);
 fprintf ('Launching FQEISS\n')
 
 % define number of obj functions and the matlab function coding them
-options.numObj = 3;   
-options.objfun = @objFunFQEISS; 
+options.nobjs = 3;   
+options.objectiveFcn = @objFunFQEISS; 
+epsilon = 10^-3;
+epsilons = repmat(epsilon, [1,options.nobjs]);
+
 
 % launch
 ix_solutions = zeros(numel(archive),1); % re-initialize ix_solutions. 
                                         % at the start of the algorithm, none
                                         % of solutions in the archive has been
                                         % found yet;
-nsga2(options);        
+% launch
+borg(...
+    options.nvars,options.nobjs,options.nconstrs,...
+    options.objectiveFcn, options.NFE,...
+    options.lowerBounds, options.upperBounds, epsilons);      
 % get solutions indexes for FQEISS
 ixFQEISS  = find(ix_solutions); 
 
@@ -146,7 +165,7 @@ PF_FQEISS.fvals     = fvals(ixFQEISS(ixesPF),[1,2,4]);
 PF_FQEISS.fvals_ext = fvals(ixFQEISS(ixesPF),:);
 
 %% delta elimination for WQEISS and WMOSS
-delta = 5;
+delta = 20;
 PFdelta_WQEISS = deltaElimination(PF_WQEISS,delta);
 PFdelta_FQEISS = deltaElimination(PF_FQEISS,delta);
 
@@ -171,14 +190,14 @@ title('WMOSS vs FQEISS')
 xlabel('Cardinality')
 ylabel('Accuracy')
 axis square
+
 %% Plot Frequency matrices
-figure('name','WQEISS (left) and FQEISS (right) frequency matrices');
+figure('name','FQEISS (left) and WQEISS (right) frequency matrices');
 subplot(1,2,1);
-plotFrequencyMatrix(PFdelta_WQEISS,options.numVar,varNames)
+plotFrequencyMatrix(PFdelta_FQEISS,options.nvars,varNames)
 
 subplot(1,2,2);
-plotFrequencyMatrix(PFdelta_FQEISS,options.numVar,varNames)
-
+plotFrequencyMatrix(PFdelta_WQEISS,options.nvars,varNames)
 
 
 
