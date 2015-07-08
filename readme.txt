@@ -29,6 +29,7 @@ Karakaya, G., Galelli, S., Ahipasaoglu, S.D., Taormina, R., 2015.
 Identifying (Quasi) Equally Informative Subsets in Feature Selection Problems for Classification: 
 A Max-Relevance Min-Redundancy Approach. 
 IEEE Trans. Cybern. doi:10.1109/TCYB.2015.2444435 
+(available at http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7150365&tag=1)
 
 Deb, K., Pratap, A., Agarwal, S., Meyarivan, T., 2002. 
 A Fast and Elitist Multiobjective Genetic Algorithm. 
