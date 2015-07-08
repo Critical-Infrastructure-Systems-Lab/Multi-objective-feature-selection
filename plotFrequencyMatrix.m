@@ -62,7 +62,6 @@ myColorMap = flipud(gray(max(unique(temp))+1)); % flipud so that blanks are whit
 colormap(myColorMap)
 
 % title and labels
-% xlabel('feature id.') % x-axis label
 ylabel('subset id.')  % y-axis label
 % check if feature names are available. if so, prints them
 if (nargin >= 3) && ~isempty(featNames)
@@ -92,7 +91,6 @@ text(0.875:1:nFeat, zeros(1,nFeat),labels,...
     'HorizontalAlignment','left','Rotation',90);
 
 % add secondary y axis
-% check if metricToPrint was given, otherwise go for RMSE
 temp = accuracies;
 
 labels = arrayfun(@(x) sprintf('%3.3f',x),temp(sIxes),...
