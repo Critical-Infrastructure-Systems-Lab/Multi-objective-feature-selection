@@ -1,27 +1,39 @@
 This toolbox implements the WQEISS/WMOSS/FQEISS feature selection techniques for classification problems presented in Karakaya et al. (2015).
  
-Currently only the NSGA-II algorithm (Deb et al., 2002) is supported, but additional scripts  for the Borg version(Hadka and Reed, 2012) will be uploaded shortly. 
- 
-This toolbox depends on the following contributions which have to be donwloaded and referenced. 
- 
-1) Song Lin's NGPM toolbox for NSGA-II, 
-   http://in.mathworks.com/matlabcentral/fileexchange/31166-ngpm-a-nsga-ii-program-in-matlab-v1-4
- 
-2) Hanchuan Peng's Mutual Information computation toolbox
+This toolbox depends on the following contributions, which have to be donwloaded and appropriately referenced in the code. 
+  
+1) Hanchuan Peng's Mutual Information computation toolbox
   http://www.mathworks.com/matlabcentral/fileexchange/14888-mutual-information-computation
 
-3)Yi Cao's Pareto-front toolbox
+2)Yi Cao's Pareto-front toolbox
   http://www.mathworks.com/matlabcentral/fileexchange/17251-pareto-front
+  
+3) Song Lin's NGPM toolbox for NSGA-II (Deb et al., 2002) 
+   http://in.mathworks.com/matlabcentral/fileexchange/31166-ngpm-a-nsga-ii-program-in-matlab-v1-4    
 
-The NSGA-II version of the algorithms is illustrated in "script_example_NSGAII.m" for the "Heart" dataset of the UCI Repository (Lichman, 2013). 
+The scripts also support the Borg multi-objective algorithm, which was originally used for the experiments reported in Karakaya et al. (2015). 
+Interested users who want to employ Borg instead of NSGA-II are referred to http://borgmoea.org for the MATLAB files required by this package.      
 
-Contrary to the experiments reported in Karakaya et al. (2015), this illustrative implementation features only one run for each algorithm on the chosen dataset. We suggest the user to run each algorithm several times, possibly using different randomizations of the employed dataset, in order to maximize the number of solutions returned by the methods and better assess the accuracy of the trained models. An overall Pareto-front should then be constructed from all the solutions returned by the multiple runs, making sure that the same value of accuracy is assigned to equal solutions (equal subsets) returned on different runs. This could be done by averaging the accuracies across the runs. For a fair comparison of the results of the three algorithms, it is also important that the same (average) accuracy is assigned for the same solutions returned by the different techniques.
+The NSGA-II version of the algorithms is illustrated in "script_example_NSGAII.m" for the "Heart" dataset of the UCI Repository (Lichman, 2013).
+Users may refer to "script_example_BORG.m" for the equivalent version in Borg.
 
 
 
+NOTE: Contrary to the experiments reported in Karakaya et al. (2015), this illustrative implementation features only one run for each algorithm on the chosen dataset. 
+We suggest the user to run each algorithm several times, possibly using different randomizations of the employed dataset, in order to maximize the number of solutions 
+returned by the methods and better assess the accuracy of the trained models. An overall Pareto-front should then be constructed from all the solutions returned by 
+the multiple runs, making sure that the same value of accuracy is assigned to equal solutions (equal subsets) returned on different runs. This could be done by 
+averaging the accuracies across the runs. For a fair comparison of the results of the three algorithms, it is also important that the same (average) accuracy is 
+assigned for the same solutions returned by the different techniques.
 
 
-References: 
+
+References:
+
+Karakaya, G., Galelli, S., Ahipasaoglu, S.D., Taormina, R., 2015. 
+Identifying (Quasi) Equally Informative Subsets in Feature Selection Problems for Classification: 
+A Max-Relevance Min-Redundancy Approach. 
+IEEE Trans. Cybern. doi:10.1109/TCYB.2015.2444435 
 
 Deb, K., Pratap, A., Agarwal, S., Meyarivan, T., 2002. 
 A Fast and Elitist Multiobjective Genetic Algorithm. 
@@ -33,11 +45,6 @@ Evol. Comput. 21, 1–30. doi:10.1162/EVCO_a_00075
 
 Lichman, M. (2013). UCI Machine Learning Repository [http://archive.ics.uci.edu/ml]. 
 Irvine, CA: University of California, School of Information and Computer Science.
-
-Karakaya, G., Galelli, S., Ahipasaoglu, S.D., Taormina, R., 2015. 
-Identifying (Quasi) Equally Informative Subsets in Feature Selection Problems for Classification: 
-A Max-Relevance Min-Redundancy Approach. 
-IEEE Trans. Cybern. doi:10.1109/TCYB.2015.2444435
 
 
 

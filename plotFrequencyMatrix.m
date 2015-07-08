@@ -55,10 +55,10 @@ end
 % plot 
 temp = fMat.*repmat(cardinalities*nFeat,1,nFeat); % colour by cardinality
 temp2 = [cardinalities,accuracies];
-[~,sIxes] = sortrows(temp2,[1,2]); % sort by cardinality, then RMSE
+[~,sIxes] = sortrows(temp2,[1,2]); % sort by cardinality, then accuracy
 temp = temp(sIxes,:);
 imagesc(temp);
-myColorMap = flipud(gray(max(unique(temp))+1)); % fliupud so that blanks are white
+myColorMap = flipud(gray(max(unique(temp))+1)); % flipud so that blanks are white
 colormap(myColorMap)
 
 % title and labels
