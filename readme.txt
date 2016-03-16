@@ -60,6 +60,6 @@ This file is part of Matlab-Multi-objective-Feature-Selection.
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with MATLAB_IterativeInputSelection.  
+    along with  Matlab-Multi-objective-Feature-Selection.  
     If not, see <http://www.gnu.org/licenses/>.
 
