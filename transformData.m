@@ -35,8 +35,8 @@ function transf_data = transformData(data,varTypes)
 %
 
 % discretization options
-nBins     = 10;
-quantType = 'equalfreq'; 
+nBins     = 20;
+quantType = 'equalwidth'; 
 
 % initialize output array
 [nObs,nVars] = size(data);

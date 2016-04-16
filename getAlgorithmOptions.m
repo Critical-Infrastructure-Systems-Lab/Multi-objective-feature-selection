@@ -1,9 +1,9 @@
-function [options,objFunOptions] = getAlgorithmOptions(algorithm,data)
+function [options,objFunOptions] = getAlgorithmOptions(algorithm,data,varargin)
 % Options for the algorithms (NSGAII/BORG) and the objective function
 %
 %
 %
-% Copyright 2015 Riccardo Taormina (riccardo_taormina@sutd.edu.sg), 
+% Copyright 2016 Riccardo Taormina (riccardo_taormina@sutd.edu.sg), 
 %      Gulsah Karakaya (gulsahkilickarakaya@gmail.com;), 
 %      Stefano Galelli (stefano_galelli@sutd.edu.sg),
 %      and Selin Damla Ahipasaoglu (ahipasaoglu@sutd.edu.sg;. 
@@ -28,29 +28,44 @@ function [options,objFunOptions] = getAlgorithmOptions(algorithm,data)
 %     If not, see <http://www.gnu.org/licenses/>.
 %
 
+% check nargin
+if nargin == 2
+    problem_type = 'CLASSIFICATION';
+elseif (nargin == 3) && varargin{1} == true 
+    problem_type = 'REGRESSION';
+else
+    error('Problem type not recognized!')
+end
+    
+    
+
 % extract attributes (PHI) and predictand (Y)
 PHI    = data(:,1:end-1);
 [nPatterns,nAttrs] = size(PHI);
 tempY  = data(:,end);
 
-% restructure predictand (array with same number of columns of number of classes) 
-classes  = unique(tempY);
-nClasses = numel(classes);
-Y = zeros(nPatterns,nClasses);
-for i = 1 : nClasses
-    thisClass = classes(i);
-    ixes = (tempY == thisClass);
-    Y(ixes,i) = 1;
+if strcmp(problem_type, 'CLASSIFICATION')
+    % restructure predictand (array with same number of columns of number of classes) 
+    classes  = unique(tempY);
+    nClasses = numel(classes);
+    Y = zeros(nPatterns,nClasses);
+    for i = 1 : nClasses
+        thisClass = classes(i);
+        ixes = (tempY == thisClass);
+        Y(ixes,i) = 1;
+    end
+else
+    Y = tempY;  
 end
 
 
 % Objective Function options
-objFunOptions.Y              = Y;               % predictand
-objFunOptions.PHI            = PHI;             % attributes
-objFunOptions.nFolds         = 10;              % folds for k-fold cross-validation
-objFunOptions.nELM           = 5;               % size of ELM ensemble        
-objFunOptions.nUnits         = 10;              % number of units in ELM
-objFunOptions.maxCardinality = 20;              % maximum cardinality (important for large datasets)
+objFunOptions.Y              = Y;           % predictand
+objFunOptions.PHI            = PHI;         % attributes
+objFunOptions.nFolds         = 10;          % folds for k-fold cross-validation
+objFunOptions.nELM           = 10;          % size of ELM ensemble        
+objFunOptions.nUnits         = 50;          % number of units in ELM
+objFunOptions.maxCardinality = 20;          % maximum cardinality (important for large datasets)
 
 % Algorithm options
 if strcmp(algorithm,'NSGA2')
@@ -73,7 +88,7 @@ elseif strcmp(algorithm,'BORG')
     options.nvars       = nAttrs;              % number of design variables
     options.nconstrs    = 0;                   % number of contraints
     options.NFE         = 5000;                % number of functions evaluations
-    options.lowerBounds = zeros(1,nAttrs);     % lower bound of design variables (0)
+    options.lowerBounds = -ones(1,nAttrs);     % lower bound of design variables (-1)
     options.upperBounds = ones(1,nAttrs);      % upper bound of design variables (1)    
 else
     error('Algorithm not supported!')
