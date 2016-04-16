@@ -22,6 +22,13 @@ Users may refer to "script_example_BORG.m" for the equivalent version in Borg.
 NOTE: Contrary to the experiments reported in Karakaya et al. (2015), this illustrative implementation features only one run for each algorithm on the chosen dataset. We suggest the user to run each algorithm several times, possibly using different randomizations of the employed dataset, in order to maximize the number of solutions  returned by the methods and better assess the accuracy of the trained models. An overall Pareto-front should then be constructed from all the solutions returned by  the multiple runs, making sure that the same value of accuracy is assigned to equal solutions (equal subsets) returned on different runs. This could be done by  averaging the accuracies across the runs. For a fair comparison of the results of the three algorithms, it is also important that the same (average) accuracy is assigned for the same solutions returned by the different techniques.
 
 
+*** UPDATE 04/2016: the W-QEISS algorithm for regression problems has described in 
+     
+     Taormina, R., Galelli, S., Karakaya, G., Ahipasaoglu, S.D. An information theoretic approach to select alternate subsets of predictors for data-driven hydrological models.Water Resources Research (in review)
+
+    has also been included in the package. See script_example_BORG__REGRESSION and script_example_NSGA__REGRESSION *** 
+
+
 
 References:
 
