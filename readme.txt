@@ -1,4 +1,4 @@
-This toolbox implements the WQEISS/WMOSS/FQEISS feature selection techniques for classification problems presented in Karakaya et al. (2015).
+This toolbox implements the WQEISS/WMOSS/FQEISS feature selection techniques for classification problems presented in Karakaya et al. (2015) and Taormina et al. (2016).
  
 This toolbox depends on the following contributions, which have to be donwloaded and appropriately referenced in the code. 
   
